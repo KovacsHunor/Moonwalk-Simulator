@@ -7,8 +7,8 @@ namespace Moonwalk_Simulator
 {
     public class Slice
     {
-        public List<GameObject> Objects;
+        public List<GameObject> Objects = new List<GameObject>();
         public Point Position;
-        public int Size = 10*60;
+        public int Size = 16*60;
     }
 }
