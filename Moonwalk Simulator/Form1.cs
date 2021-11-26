@@ -15,28 +15,27 @@ namespace Moonwalk_Simulator
         public Form1()
         {
             Global.GameObjects.Add(Global.player);
-            player.Sprite = Image.FromFile(@"sprites\wall.png");
+            player.Sprite = Properties.Resources.wall;
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
-            GenerateMap("level0.txt");
+            GenerateMap(Properties.Resources.level0);
         }
 
         void GenerateMap(string file)
         {
-            StreamReader reader = new StreamReader(file);
+            string[] lines = file.Split('\n');
             int y = 0;
-            while (!reader.EndOfStream)
-            {
-                string line = reader.ReadLine();
+            foreach (string line in lines )
+            { 
                 int x = 0;
                 while (x < line.Length)
                 {
                     if (line[x] == 'w')
                     {
                         Wall g = new Wall();
-                        g.Sprite = Image.FromFile(@"sprites\wall.png");
+                        g.Sprite = Properties.Resources.wall;
                         GenerateObject(g, x, y);
                     }
                     else if (line[x] == 'b')
