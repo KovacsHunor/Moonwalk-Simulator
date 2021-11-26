@@ -9,6 +9,6 @@ namespace Moonwalk_Simulator
     {
         public List<GameObject> Objects = new List<GameObject>();
         public Point Position;
-        public int Size = 16*60;
+        public static int Size = 16*60;
     }
 }

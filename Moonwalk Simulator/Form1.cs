@@ -91,9 +91,12 @@ namespace Moonwalk_Simulator
 
         private void main_Tick(object sender, EventArgs e)
         {
-            if (!player.Collide())
+            if (!player.HorizontalCollide())
             {
                 player.Location.X += player.Speed.X;
+            }
+            if (!player.VerticalCollide())
+            {
                 player.Location.Y += player.Speed.Y;
             }
             Refresh();
