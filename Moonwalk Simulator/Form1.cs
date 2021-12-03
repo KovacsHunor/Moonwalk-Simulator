@@ -9,34 +9,20 @@ namespace Moonwalk_Simulator
     public partial class Form1 : Form
     {        
         static Player player = Global.player;
-        Point posConst;       
-        float scale = Screen.PrimaryScreen.Bounds.Height / 1080f;
+        Point posConst = new Point(1920/2, 2*1080/3);
 
         public Form1()
         {
-           
+            
             Global.GameObjects.Add(Global.player);
             player.Sprite = Properties.Resources.wall;
+            player.Location = new Point(10,-100);
+            player.Size = new Size(30,60);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
             GenerateMap(Properties.Resources.level0);
-        }
-        public void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.A)
-            {
-                player.Left = true;
-            }
-            if (e.KeyCode == Keys.D )
-            {
-                player.Right = true;
-            }
-            if(e.KeyCode == Keys.Space && player.onGround)
-            {
-                player.Speed.Y = 20;
-            }
         }
         void GenerateMap(string file)
         {
@@ -95,26 +81,51 @@ namespace Moonwalk_Simulator
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            e.Graphics.ScaleTransform(Screen.PrimaryScreen.Bounds.Width / 1920f, Screen.PrimaryScreen.Bounds.Height / 1080f);
             foreach (GameObject obj in Global.GameObjects)
             {
+                int d = 0;
+                if (obj is Wall)
+                {
+                    d++;
+                }
                 e.Graphics.DrawImage(obj.Sprite,
-                                     obj.Location.X * scale + posConst.X - player.Location.X,
-                                     obj.Location.Y * scale + posConst.Y - player.Location.Y,
-                                     obj.Size.Width * scale, obj.Size.Height * scale);
+                                     obj.Location.X-d + posConst.X - player.Location.X,
+                                     obj.Location.Y-d + posConst.Y - player.Location.Y,
+                                     obj.Size.Width+2*d, obj.Size.Height+2*d);
             }
         }
 
         private void main_Tick(object sender, EventArgs e)
         {
-            if (!player.HorizontalCollide())
-            {
-                player.Location.X += player.Speed.X;
-            }
-            if (!player.VerticalCollide())
-            {
-                player.Location.Y += player.Speed.Y;
-            }
+            player.Move();
             Refresh();
+        }
+        public void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                player.Left = true;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                player.Right = true;
+            }
+            if (e.KeyCode == Keys.Space && player.onGround)
+            {
+                player.Speed.Y = -20;
+            }
+        }
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                player.Left = false;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                player.Right = false;
+            }
         }
     }
 }

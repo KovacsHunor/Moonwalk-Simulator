@@ -61,7 +61,7 @@ namespace Moonwalk_Simulator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wwww.
+        ///   Looks up a localized string similar to wwwwww.
         /// </summary>
         internal static string level0 {
             get {
