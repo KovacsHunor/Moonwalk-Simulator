@@ -47,6 +47,7 @@ namespace Moonwalk_Simulator
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.KeyDown += Form1_KeyDown;
 
         }
 

@@ -3,19 +3,16 @@
 namespace Moonwalk_Simulator
 {
     public class GameObject
-    {        
+    {
+        public Point Speed = new Point();
         public Image Sprite;
         public Point Location;
         public Size Size;
-    }
-    public class Player : GameObject
-    {
-        public Point Speed = new Point();
         public bool HorizontalCollide()
         {
             foreach (GameObject item in Global.Slices[Location.Y / Slice.Size][Location.X / Slice.Size].Objects)
             {
-                if (item.Location.X < Location.X + Size.Width + Speed.X && item.Location.X > Location.X)
+                if (item.Location.X < Location.X + Size.Width + Speed.X && item.Location.X > Location.X + Size.Width)
                 {
                     return true;
                 }
@@ -30,8 +27,12 @@ namespace Moonwalk_Simulator
         {
             foreach (GameObject item in Global.Slices[Location.Y / Slice.Size][Location.X / Slice.Size].Objects)
             {
-                if (item.Location.Y < Location.Y + Size.Height + Speed.Y && item.Location.Y > Location.Y)
+                if (item.Location.Y < Location.Y + Size.Height + Speed.Y && item.Location.Y > Location.Y + Size.Height)
                 {
+                    if(this == Global.player)
+                    {
+                        Global.player.onGround = true;
+                    }
                     return true;
                 }
                 if (item.Location.Y + item.Size.Height > Location.Y + Speed.Y && item.Location.Y + item.Size.Height < Location.Y)
@@ -41,6 +42,17 @@ namespace Moonwalk_Simulator
             }
             return false;
         }
+    }
+    public class Player : GameObject
+    {
+        public bool Right;
+        public bool Left;
+        public bool onGround;
+        public void Move()
+        {
+          
+        }
+        
     }
     public class Wall : GameObject
     {

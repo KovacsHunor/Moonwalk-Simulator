@@ -14,15 +14,31 @@ namespace Moonwalk_Simulator
 
         public Form1()
         {
+           
             Global.GameObjects.Add(Global.player);
             player.Sprite = Image.FromFile(@"sprites\wall.png");
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
+            
             GenerateMap("level0.txt");
         }
-
+        public void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                player.Left = true;
+            }
+            if (e.KeyCode == Keys.D )
+            {
+                player.Right = true;
+            }
+            if(e.KeyCode == Keys.Space && player.onGround)
+            {
+                player.Speed.Y = 20;
+            }
+        }
         void GenerateMap(string file)
         {
             StreamReader reader = new StreamReader(file);
