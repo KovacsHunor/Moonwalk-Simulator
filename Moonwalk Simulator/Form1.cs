@@ -15,7 +15,7 @@ namespace Moonwalk_Simulator
         {
             
             Global.GameObjects.Add(Global.player);
-            player.Sprite = Properties.Resources.wall;
+            player.Sprite = Properties.Resources.jackson_hat;
             player.Location = new Point(0,0);
             player.Size = new Size(30,60);
             DoubleBuffered = true;
@@ -23,8 +23,8 @@ namespace Moonwalk_Simulator
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
             GenerateMap(Properties.Resources.level0);
-            
         }
+        
         void GenerateMap(string file)
         {
             string[] lines = file.Split('\n');
@@ -105,6 +105,22 @@ namespace Moonwalk_Simulator
             player.Move();
             Refresh();
         }
+        public void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.XButton1)
+            {
+                player.onPlatform = true;
+                player.Jumping = false;
+            }
+        }
+        public void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.XButton1)
+            {
+                player.onPlatform = false;
+                player.countPlatform = 20;
+            }
+        }
         public void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -115,11 +131,19 @@ namespace Moonwalk_Simulator
             {
                 player.Right = true;
             }
-            if (e.KeyCode == Keys.Space && player.onGround)
+            if (e.KeyCode == Keys.Space && ((player.countPlatform > 0 && player.platformJump) || player.onGround) && !player.onPlatform && player.fuel > 0)
             {
+                if(player.countPlatform > 0)
+                {
+                    player.platformJump = false;
+                }
                 player.ShortJump = false;
                 player.Jumping = true;
                 player.JumpLim++;
+            }
+            if(e.KeyCode == Keys.ShiftKey)
+            {
+               // player.onPlatform = true;
             }
             if (e.KeyCode == Keys.B)
             {
