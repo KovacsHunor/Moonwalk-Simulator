@@ -14,9 +14,9 @@ namespace Moonwalk_Simulator
         public Point Speed = new Point();
         public bool HorizontalCollide(int x, int y, bool recursion)
         {
-            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
+            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices[y].Count)
             {
-                foreach (GameObject item in Global.Slices[x][y].Objects)
+                foreach (GameObject item in Global.Slices[y][x].Objects)
                 {
                     if (Location.Y < item.Location.Y + item.Size.Height + 1 && Location.Y + Size.Height > item.Location.Y - 1)
                     {
@@ -43,9 +43,9 @@ namespace Moonwalk_Simulator
         }
         public bool VerticalCollide(int x, int y, bool recursion)
         {
-            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
+            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices[y].Count)
             {
-                foreach (GameObject item in Global.Slices[x][y].Objects)
+                foreach (GameObject item in Global.Slices[y][x].Objects)
                 {
                     if (Location.X < item.Location.X + item.Size.Width + 1 && Location.X + Size.Width > item.Location.X - 1)
                     {

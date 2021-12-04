@@ -34,13 +34,13 @@ namespace Moonwalk_Simulator
                 int x = 0;
                 while (x < line.Length)
                 {
-                    while (Global.Slices.Count < x/16 + 1)
+                    while (Global.Slices.Count < y/16 + 1)
                     {
                         Global.Slices.Add(new List<Slice>());
                     }
                     for (int j = 0; j < Global.Slices.Count; j++)
                     {
-                        while (Global.Slices[j].Count < y/16 + 1)
+                        while (Global.Slices[j].Count < x/16 + 1)
                         {
                             Global.Slices[j].Add(new Slice());
                         }
@@ -79,7 +79,7 @@ namespace Moonwalk_Simulator
             g.Location = new Point(x * 60, y * 60);
             g.Size = new Size(60, 60);
             Global.GameObjects.Add(g);
-            Global.Slices[x / 16][y / 16].Objects.Add(g);
+            Global.Slices[y / 16][x / 16].Objects.Add(g);
         }
 
 
