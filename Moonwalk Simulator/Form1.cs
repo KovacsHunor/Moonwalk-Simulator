@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Resources;
 
 namespace Moonwalk_Simulator
 {
     public partial class Form1 : Form
-    {        
+    {
         static Player player = Global.player;
-        Point posConst = new Point(1920/2, 2*1080/3);
+        Point posConst = new Point((1920-30)/2, 2*1080/3);
 
         public Form1()
         {
-            
             Global.GameObjects.Add(Global.player);
-            player.Sprite = Properties.Resources.wall;
+            player.Sprite = Properties.Resources.player;
             player.Location = new Point(0,0);
             player.Size = new Size(30,60);
             DoubleBuffered = true;
@@ -131,15 +131,48 @@ namespace Moonwalk_Simulator
             if (e.KeyCode == Keys.A)
             {
                 player.Left = false;
+                if (!player.Right)
+                {
+                    player.Sprite = player.moonwalkLeft[0];
+                }
             }
             if (e.KeyCode == Keys.D)
             {
                 player.Right = false;
+                if (!player.Left)
+                {
+                    player.Sprite = player.moonwalkRight[0];
+                }
             }
             if (e.KeyCode == Keys.Space)
             {
                 player.ShortJump = true;
                 player.JumpLim = 0;
+            }
+        }
+
+        public static int anim = 0;
+        bool spin;
+        private void moowalk_Tick(object sender, EventArgs e)
+        {
+            if (player.Left)
+            {
+                player.Sprite = player.moonwalkLeft[anim];
+            }
+            else if (player.Right)
+            {
+                player.Sprite = player.moonwalkRight[anim];
+            }        
+            anim = (anim + 1) % 20;
+            if (player.Left && player.Right)
+            {
+                anim = 0;
+                player.Sprite = player.moonwalkRight[anim];
+                if (spin)
+                {
+                    player.Sprite = player.moonwalkLeft[anim];
+                }
+                spin = !spin;
             }
         }
     }

@@ -95,6 +95,26 @@ namespace Moonwalk_Simulator
     }
     public class Player : CollidingObject
     {
+        public Image[] moonwalkLeft;
+        public Image[] moonwalkRight;
+
+        public Player()
+        {
+            moonwalkLeft = new Image[20]
+            { Properties.Resources._0, Properties.Resources._1, Properties.Resources._2, Properties.Resources._3, Properties.Resources._4,
+              Properties.Resources._5, Properties.Resources._6, Properties.Resources._7, Properties.Resources._8, Properties.Resources._9,
+              Properties.Resources._10, Properties.Resources._11, Properties.Resources._12, Properties.Resources._13, Properties.Resources._14,
+              Properties.Resources._15, Properties.Resources._16, Properties.Resources._17, Properties.Resources._18, Properties.Resources._19};
+            moonwalkRight = new Image[20]
+            { Properties.Resources._0, Properties.Resources._1, Properties.Resources._2, Properties.Resources._3, Properties.Resources._4,
+              Properties.Resources._5, Properties.Resources._6, Properties.Resources._7, Properties.Resources._8, Properties.Resources._9,
+              Properties.Resources._10, Properties.Resources._11, Properties.Resources._12, Properties.Resources._13, Properties.Resources._14,
+              Properties.Resources._15, Properties.Resources._16, Properties.Resources._17, Properties.Resources._18, Properties.Resources._19 };
+            for (int i = 0; i < moonwalkRight.Length; i++)
+            {
+                moonwalkRight[i].RotateFlip(RotateFlipType.Rotate180FlipY);
+            }
+        }
         public bool Right;
         public bool Left;
         public bool onGround;
@@ -139,6 +159,22 @@ namespace Moonwalk_Simulator
                     a.X += -4;
                 }
                 a.X += 4;
+            }
+            if (Left && Right && onGround)
+            {
+                if (Math.Abs(Speed.X) > 0)
+                {
+                    if (Math.Abs(Speed.X) - 4 < 0)
+                    {
+                        Speed.X = 0;
+                        a.X += Math.Sign(Speed.X)*4;
+                    }
+                    a.X += -1* Math.Sign(Speed.X) * 4;
+                }
+                else
+                {
+                    a.X = 0;
+                }
             }
             Accelerate(a, 15);
             if (HorizontalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))

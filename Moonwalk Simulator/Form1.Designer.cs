@@ -31,6 +31,7 @@ namespace Moonwalk_Simulator
         {
             this.components = new System.ComponentModel.Container();
             this.main = new System.Windows.Forms.Timer(this.components);
+            this.moowalk = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // main
@@ -39,6 +40,12 @@ namespace Moonwalk_Simulator
             this.main.Interval = 10;
             this.main.Tick += new System.EventHandler(this.main_Tick);
             // 
+            // moowalk
+            // 
+            this.moowalk.Enabled = true;
+            this.moowalk.Interval = 50;
+            this.moowalk.Tick += new System.EventHandler(this.moowalk_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -46,8 +53,8 @@ namespace Moonwalk_Simulator
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.ResumeLayout(false);
 
         }
@@ -55,6 +62,7 @@ namespace Moonwalk_Simulator
         #endregion
 
         private System.Windows.Forms.Timer main;
+        private System.Windows.Forms.Timer moowalk;
     }
 }
 
