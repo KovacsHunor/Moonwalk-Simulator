@@ -94,9 +94,9 @@ namespace Moonwalk_Simulator
                     d++;
                 }
                 e.Graphics.DrawImage(obj.Sprite,
-                                     obj.Location.X-d + posConst.X - player.Location.X,
-                                     obj.Location.Y-d + posConst.Y - player.Location.Y,
-                                     obj.Size.Width+2*d, obj.Size.Height+2*d);
+                                     obj.Location.X - d + posConst.X - player.Location.X,
+                                     obj.Location.Y - d + posConst.Y - player.Location.Y,
+                                     obj.Size.Width + 2 * d, obj.Size.Height + 2 * d);
             }
         }
 

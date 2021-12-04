@@ -12,56 +12,74 @@ namespace Moonwalk_Simulator
     public class CollidingObject : GameObject
     {
         public Point Speed = new Point();
-        public bool HorizontalCollide(int x, int y)
+        public bool HorizontalCollide(int x, int y, bool recursion)
         {
-            foreach (GameObject item in Global.Slices[y/16/60][x/16/60].Objects)
+            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
             {
-                if (Location.Y < item.Location.Y + item.Size.Height && Location.Y + Size.Height > item.Location.Y)
+                foreach (GameObject item in Global.Slices[y][x].Objects)
                 {
-                    if (item.Location.X < Location.X + Size.Width + Speed.X + 1 && item.Location.X > Location.X + Size.Width)
+                    if (Location.Y < item.Location.Y + item.Size.Height + 1 && Location.Y + Size.Height > item.Location.Y - 1)
                     {
-                        Location.X = item.Location.X - Size.Width - 1;
-                        return true;
-                    }
-                    if (item.Location.X + item.Size.Width > Location.X + Speed.X - 1 && item.Location.X + item.Size.Width < Location.X)
-                    {
-                        Location.X = item.Location.X + item.Size.Width + 1;
-                        return true;
+                        if (item.Location.X < Location.X + Size.Width + Speed.X + 1 && item.Location.X > Location.X + Size.Width)
+                        {
+                            Location.X = item.Location.X - Size.Width - 1;
+                            return true;
+                        }
+                        if (item.Location.X + item.Size.Width > Location.X + Speed.X - 1 && item.Location.X + item.Size.Width < Location.X)
+                        {
+                            Location.X = item.Location.X + item.Size.Width + 1;
+                            return true;
+                        }
                     }
                 }
             }
+            if (this is Player && !recursion &&
+                (Convert.ToInt32((Location.X + Speed.X + Math.Sign(Speed.X)) / (16 * 60)) != x ||
+                 Convert.ToInt32((Location.Y + Speed.Y + Math.Sign(Speed.Y)) / (16 * 60)) != y))
+            {
+                return HorizontalCollide((Location.X + Speed.X) / (16 * 60), (Location.Y + Speed.Y) / (16 * 60), true);
+            }
             return false;
         }
-        public bool VerticalCollide(int x, int y)
+        public bool VerticalCollide(int x, int y, bool recursion)
         {
-            foreach (GameObject item in Global.Slices[y/16/60][x/16/60].Objects)
+            if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
             {
-                if (Location.X < item.Location.X + item.Size.Width && Location.X + Size.Width > item.Location.X)
+                foreach (GameObject item in Global.Slices[y][x].Objects)
                 {
-                    if (item.Location.Y < Location.Y + Size.Height + Speed.Y + 1 && item.Location.Y > Location.Y + Size.Height)
+                    if (Location.X < item.Location.X + item.Size.Width + 1 && Location.X + Size.Width > item.Location.X - 1)
                     {
-                        if (this == Global.player)
+                        if (item.Location.Y < Location.Y + Size.Height + Speed.Y + 1 && item.Location.Y > Location.Y + Size.Height)
                         {
-                            Global.player.onGround = true;
-                            
+                            if (this == Global.player)
+                            {
+                                Global.player.onGround = true;
+
+                            }
+                            Location.Y = item.Location.Y - Size.Height - 1;
+                            return true;
                         }
-                        Location.Y = item.Location.Y - Size.Height - 1;
-                        return true;
+                        else if (this == Global.player)
+                        {
+                            Global.player.onGround = false;
+                        }
+                        if (item.Location.Y + item.Size.Height > Location.Y + Speed.Y - 1 && item.Location.Y + item.Size.Height < Location.Y)
+                        {
+                            Location.Y = item.Location.Y + item.Size.Height + 1;
+                            return true;
+                        }
                     }
                     else if (this == Global.player)
                     {
                         Global.player.onGround = false;
                     }
-                    if (item.Location.Y + item.Size.Height > Location.Y + Speed.Y - 1 && item.Location.Y + item.Size.Height < Location.Y)
-                    {
-                        Location.Y = item.Location.Y + item.Size.Height + 1;
-                        return true;
-                    }
                 }
-                else if (this == Global.player)
-                {
-                    Global.player.onGround = false;
-                }
+            }
+            if (this is Player && !recursion &&
+                (Convert.ToInt32((Location.X + Speed.X + Math.Sign(Speed.X)) / (16 * 60)) != x ||
+                 Convert.ToInt32((Location.Y + Speed.Y + Math.Sign(Speed.Y)) / (16 * 60)) != y))
+            {
+                return VerticalCollide((Location.X + Speed.X) / (16 * 60), (Location.Y + Speed.Y) / (16 * 60), true);
             }
             return false;
         }
@@ -111,7 +129,7 @@ namespace Moonwalk_Simulator
                 a.X += 4;
             }
             Accelerate(a, 15);
-            if (HorizontalCollide(Global.player.Location.X,Global.player.Location.Y))
+            if (HorizontalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.X = 0;
             }
@@ -119,7 +137,7 @@ namespace Moonwalk_Simulator
             {
                 Location.X += Speed.X;
             }
-            if (VerticalCollide(Global.player.Location.X,Global.player.Location.Y))
+            if (VerticalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.Y = 0;
             }
@@ -133,7 +151,7 @@ namespace Moonwalk_Simulator
     {
         public void Move()
         {
-            if (HorizontalCollide(0,0))
+            if (HorizontalCollide(0,0,false))
             {
                 Speed.X *= -1;
             }
@@ -141,7 +159,7 @@ namespace Moonwalk_Simulator
             {
                 Location.X += Speed.X;
             }
-            if (VerticalCollide(0,0))
+            if (VerticalCollide(0,0,false))
             {
                 Speed.Y *= -1;
             }
