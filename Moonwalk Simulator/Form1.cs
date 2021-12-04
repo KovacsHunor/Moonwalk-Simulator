@@ -16,13 +16,14 @@ namespace Moonwalk_Simulator
             
             Global.GameObjects.Add(Global.player);
             player.Sprite = Properties.Resources.wall;
-            player.Location = new Point(10,-100);
+            player.Location = new Point(0,0);
             player.Size = new Size(30,60);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
             GenerateMap(Properties.Resources.level0);
+            
         }
         void GenerateMap(string file)
         {
@@ -33,6 +34,17 @@ namespace Moonwalk_Simulator
                 int x = 0;
                 while (x < line.Length)
                 {
+                    while (Global.Slices.Count < y/16 + 2 )
+                    {
+                        Global.Slices.Add(new List<Slice>());
+                    }
+                    for (int j = 0; j < Global.Slices.Count; j++)
+                    {
+                        while (Global.Slices[j].Count < x / 16 + 2)
+                        {
+                            Global.Slices[j].Add(new Slice());
+                        }
+                    }
                     if (line[x] == 'w')
                     {
                         Wall g = new Wall();
@@ -66,14 +78,6 @@ namespace Moonwalk_Simulator
         {
             g.Location = new Point(x * 60, y * 60);
             g.Size = new Size(60, 60);
-            if (Global.Slices.Count < (y / 16) + 1)
-            {
-                Global.Slices.Add(new List<Slice>());
-            }
-            if (Global.Slices[y / 16].Count < (x / 16) + 1)
-            {
-                Global.Slices[y / 16].Add(new Slice());
-            }
             Global.GameObjects.Add(g);
             Global.Slices[y / 16][x / 16].Objects.Add(g);
         }
@@ -113,7 +117,11 @@ namespace Moonwalk_Simulator
             }
             if (e.KeyCode == Keys.Space && player.onGround)
             {
-                player.Speed.Y = -20;
+                player.Speed.Y = -25;
+            }
+            if (e.KeyCode == Keys.B)
+            {
+                //debug
             }
         }
         private void Form1_KeyUp(object sender, KeyEventArgs e)

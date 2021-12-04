@@ -14,7 +14,7 @@ namespace Moonwalk_Simulator
         public Point Speed = new Point();
         public bool HorizontalCollide(int x, int y)
         {
-            foreach (GameObject item in Global.Slices[y][x].Objects)
+            foreach (GameObject item in Global.Slices[y/16/60][x/16/60].Objects)
             {
                 if (Location.Y < item.Location.Y + item.Size.Height && Location.Y + Size.Height > item.Location.Y)
                 {
@@ -34,7 +34,7 @@ namespace Moonwalk_Simulator
         }
         public bool VerticalCollide(int x, int y)
         {
-            foreach (GameObject item in Global.Slices[y][x].Objects)
+            foreach (GameObject item in Global.Slices[y/16/60][x/16/60].Objects)
             {
                 if (Location.X < item.Location.X + item.Size.Width && Location.X + Size.Width > item.Location.X)
                 {
@@ -43,6 +43,7 @@ namespace Moonwalk_Simulator
                         if (this == Global.player)
                         {
                             Global.player.onGround = true;
+                            
                         }
                         Location.Y = item.Location.Y - Size.Height - 1;
                         return true;
@@ -109,8 +110,8 @@ namespace Moonwalk_Simulator
                 }
                 a.X += 4;
             }
-            Accelerate(a, 10);
-            if (HorizontalCollide(0,0))
+            Accelerate(a, 15);
+            if (HorizontalCollide(Global.player.Location.X,Global.player.Location.Y))
             {
                 Speed.X = 0;
             }
@@ -118,7 +119,7 @@ namespace Moonwalk_Simulator
             {
                 Location.X += Speed.X;
             }
-            if (VerticalCollide(0,0))
+            if (VerticalCollide(Global.player.Location.X,Global.player.Location.Y))
             {
                 Speed.Y = 0;
             }
