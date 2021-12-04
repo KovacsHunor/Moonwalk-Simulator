@@ -43,6 +43,10 @@ namespace Moonwalk_Simulator
         }
         public bool VerticalCollide(int x, int y, bool recursion)
         {
+            if (!Global.player.Jumping && this == Global.player && (Global.player.onPlatform || Global.player.countPlatform >= 0) && Global.player.fuel > 0)
+            {
+                return true;
+            }
             if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices[y].Count)
             {
                 foreach (GameObject item in Global.Slices[y][x].Objects)
@@ -93,6 +97,7 @@ namespace Moonwalk_Simulator
             }
         }
     }
+    
     public class Player : CollidingObject
     {
         public Image[] moonwalkLeft;
@@ -121,8 +126,34 @@ namespace Moonwalk_Simulator
         public bool Jumping;
         public bool ShortJump;
         public int JumpLim;
+        public bool onPlatform ;
+        public int countPlatform = -1;
+        public int fuel;
+        public bool platformJump = true;
         public void Move()
         {
+            
+            if(onPlatform)
+            {
+                fuel--;
+            }
+            if(onGround && fuel < 100)
+            {
+                fuel += 4;
+                if(!platformJump)
+                {
+                    platformJump = true;
+                }
+            }
+            if(countPlatform > 0)
+            {
+                countPlatform--;
+            }
+            else if(countPlatform == 0)
+            {
+                onGround = false;
+                countPlatform--;
+            }
             if (JumpLim == 1)
             {
                 Speed.Y = -27;
