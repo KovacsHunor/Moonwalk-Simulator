@@ -16,7 +16,7 @@ namespace Moonwalk_Simulator
         {
             if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
             {
-                foreach (GameObject item in Global.Slices[y][x].Objects)
+                foreach (GameObject item in Global.Slices[x][y].Objects)
                 {
                     if (Location.Y < item.Location.Y + item.Size.Height + 1 && Location.Y + Size.Height > item.Location.Y - 1)
                     {
@@ -45,7 +45,7 @@ namespace Moonwalk_Simulator
         {
             if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices.Count)
             {
-                foreach (GameObject item in Global.Slices[y][x].Objects)
+                foreach (GameObject item in Global.Slices[x][y].Objects)
                 {
                     if (Location.X < item.Location.X + item.Size.Width + 1 && Location.X + Size.Width > item.Location.X - 1)
                     {
@@ -144,6 +144,10 @@ namespace Moonwalk_Simulator
             else
             {
                 Location.Y += Speed.Y;
+            }
+            if (!onGround)
+            {
+
             }
         }
     }

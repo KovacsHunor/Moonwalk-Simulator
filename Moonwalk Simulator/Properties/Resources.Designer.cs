@@ -61,6 +61,15 @@ namespace Moonwalk_Simulator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string a {
+            get {
+                return ResourceManager.GetString("a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///
         ///
@@ -70,24 +79,10 @@ namespace Moonwalk_Simulator.Properties {
         ///                                     wwwwwww                                  wwwwwwwwwwww
         ///
         ///                     wwww
-        ///ű
-        ///
-        ///
-        ///
-        ///wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                        wwwwwwwwww                  wwwwwwwwwwwwwwwwwwww [rest of string was truncated]&quot;;.
+        ///                     w
+        ///                                                                                                         w
+        ///                                                                                                         w
+        ///                                                                         [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level0 {
             get {
