@@ -11,10 +11,15 @@ namespace Moonwalk_Simulator
     {
         static Player player = Global.player;
         Point posConst = new Point((1920-30)/2, 2*1080/3);
-
+        GameObject fuel0 = new GameObject();
+        GameObject fuel1 = new GameObject();
         public Form1()
         {
             Global.GameObjects.Add(Global.player);
+
+           
+            
+
             player.Sprite = Properties.Resources.player;
             player.Location = new Point(0,0);
             player.Size = new Size(30,60);
@@ -23,6 +28,14 @@ namespace Moonwalk_Simulator
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
             GenerateMap(Properties.Resources.level0);
+
+            fuel0.Size = new Size(202, 17);
+            fuel0.Sprite = Properties.Resources.fuel0;
+            Global.GameObjects.Add(fuel0);
+
+            fuel1.Size = new Size(200, 15);
+            fuel1.Sprite = Properties.Resources.fuel1;
+            Global.GameObjects.Add(fuel1);
         }
         
         void GenerateMap(string file)
@@ -102,6 +115,7 @@ namespace Moonwalk_Simulator
 
         private void main_Tick(object sender, EventArgs e)
         {
+            
             if (spacepress && !spacedown)
             {
                 if (((player.countPlatform > 0 && player.platformJump) || player.onGround) && !player.onPlatform && player.fuel > 0)
@@ -119,6 +133,21 @@ namespace Moonwalk_Simulator
                 }
             }
             player.Move();
+            fuel1.Size.Width = player.fuel * 2;
+            if(fuel1.Size.Width < 0)
+            {
+                fuel1.Size.Width = 0;
+            }
+            else if (fuel1.Size.Width > 200)
+            {
+                fuel1.Size.Width = 200;
+            }
+            fuel0.Location = player.Location;
+            fuel0.Location.X += 700;
+            fuel0.Location.Y -= 600;
+            fuel1.Location = player.Location;
+            fuel1.Location.X += 701;
+            fuel1.Location.Y -= 599;
             Refresh();
         }
         public void Form1_MouseDown(object sender, MouseEventArgs e)
