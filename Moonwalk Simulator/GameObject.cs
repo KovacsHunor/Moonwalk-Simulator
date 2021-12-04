@@ -54,7 +54,7 @@ namespace Moonwalk_Simulator
                             if (this == Global.player)
                             {
                                 Global.player.onGround = true;
-
+                                Global.player.Jumping = false;
                             }
                             Location.Y = item.Location.Y - Size.Height - 1;
                             return true;
@@ -98,8 +98,20 @@ namespace Moonwalk_Simulator
         public bool Right;
         public bool Left;
         public bool onGround;
+        public bool Jumping;
+        public bool ShortJump;
+        public int JumpLim;
         public void Move()
         {
+            if (JumpLim == 1)
+            {
+                Speed.Y = -27;
+                JumpLim++;
+            }
+            if (ShortJump && Jumping && Speed.Y < 0)
+            {
+                Accelerate(new Point(0, 1), 200);
+            }
             Accelerate(new Point(0, 1), 200); //gravity
             Point a = new Point(0, 0);
             if (Right)

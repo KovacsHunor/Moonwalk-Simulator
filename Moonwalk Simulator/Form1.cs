@@ -117,7 +117,9 @@ namespace Moonwalk_Simulator
             }
             if (e.KeyCode == Keys.Space && player.onGround)
             {
-                player.Speed.Y = -25;
+                player.ShortJump = false;
+                player.Jumping = true;
+                player.JumpLim++;
             }
             if (e.KeyCode == Keys.B)
             {
@@ -133,6 +135,11 @@ namespace Moonwalk_Simulator
             if (e.KeyCode == Keys.D)
             {
                 player.Right = false;
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                player.ShortJump = true;
+                player.JumpLim = 0;
             }
         }
     }
