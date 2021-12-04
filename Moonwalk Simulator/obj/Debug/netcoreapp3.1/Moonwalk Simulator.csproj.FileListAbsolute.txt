@@ -1,0 +1,17 @@
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk_Simulator.Form1.resources
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk_Simulator.Properties.Resources.resources
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.GenerateResource.cache
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.AssemblyInfoInputs.cache
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.AssemblyInfo.cs
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.CoreCompileInputs.cache
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.exe
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.deps.json
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.runtimeconfig.json
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.runtimeconfig.dev.json
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.dll
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.pdb
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.dll
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.pdb
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.genruntimeconfig.cache
+C:\Users\Patrik\source\repos\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.AssemblyReference.cache

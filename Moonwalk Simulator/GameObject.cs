@@ -132,8 +132,12 @@ namespace Moonwalk_Simulator
         public bool platformJump = true;
         public void Move()
         {
-            
-            if(onPlatform)
+            if (JumpLim == 1)
+            {
+                Speed.Y = -27;
+                JumpLim++;
+            }
+            if (onPlatform)
             {
                 fuel--;
             }
@@ -153,11 +157,6 @@ namespace Moonwalk_Simulator
             {
                 onGround = false;
                 countPlatform--;
-            }
-            if (JumpLim == 1)
-            {
-                Speed.Y = -27;
-                JumpLim++;
             }
             if (ShortJump && Jumping && Speed.Y < 0)
             {
@@ -207,7 +206,7 @@ namespace Moonwalk_Simulator
                     a.X = 0;
                 }
             }
-            Accelerate(a, 15);
+            Accelerate(a, 12);
             if (HorizontalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.X = 0;

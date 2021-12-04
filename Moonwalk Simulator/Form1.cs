@@ -102,6 +102,22 @@ namespace Moonwalk_Simulator
 
         private void main_Tick(object sender, EventArgs e)
         {
+            if (spacepress && !spacedown)
+            {
+                if (((player.countPlatform > 0 && player.platformJump) || player.onGround) && !player.onPlatform && player.fuel > 0)
+                {
+                    if (player.countPlatform > 0)
+                    {
+                        player.platformJump = false;
+                    }
+                    player.ShortJump = false;
+                    player.Jumping = true;
+                    if (player.JumpLim == 0 && player.countPlatform != 0)
+                    {
+                        player.JumpLim++;
+                    }
+                }
+            }
             player.Move();
             Refresh();
         }
@@ -121,6 +137,8 @@ namespace Moonwalk_Simulator
                 player.countPlatform = 20;
             }
         }
+        bool spacedown;
+        bool spacepress;
         public void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -131,15 +149,13 @@ namespace Moonwalk_Simulator
             {
                 player.Right = true;
             }
-            if (e.KeyCode == Keys.Space && ((player.countPlatform > 0 && player.platformJump) || player.onGround) && !player.onPlatform && player.fuel > 0)
+            if (e.KeyCode == Keys.Space && !spacedown)
             {
-                if(player.countPlatform > 0)
+                spacepress = true;
+                if (player.onPlatform)
                 {
-                    player.platformJump = false;
+                    spacedown = true;
                 }
-                player.ShortJump = false;
-                player.Jumping = true;
-                player.JumpLim++;
             }
             if(e.KeyCode == Keys.ShiftKey)
             {
@@ -172,6 +188,8 @@ namespace Moonwalk_Simulator
             {
                 player.ShortJump = true;
                 player.JumpLim = 0;
+                spacedown = false;
+                spacepress = false;
             }
         }
 
@@ -186,8 +204,11 @@ namespace Moonwalk_Simulator
             else if (player.Right)
             {
                 player.Sprite = player.moonwalkRight[anim];
-            }        
-            anim = (anim + 1) % 20;
+            }
+            if (player.countPlatform > 0 || player.onPlatform || player.onGround)
+            {
+                anim = (anim + 1) % 20;
+            }
             if (player.Left && player.Right)
             {
                 anim = 0;
