@@ -8,26 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Patrik\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Lenovoű\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Patrik\\source\\repos\\Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovoű\\Downloads\\Moonwalk-Simulator\\Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
       "projectName": "Moonwalk Simulator",
-      "projectPath": "C:\\Users\\Patrik\\source\\repos\\Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
-      "packagesPath": "C:\\Users\\Patrik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Patrik\\source\\repos\\Moonwalk-Simulator\\Moonwalk Simulator\\obj\\",
+      "projectPath": "C:\\Users\\Lenovoű\\Downloads\\Moonwalk-Simulator\\Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
+      "packagesPath": "C:\\Users\\Lenovoű\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovoű\\Downloads\\Moonwalk-Simulator\\Moonwalk-Simulator\\Moonwalk Simulator\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Patrik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Lenovoű\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
