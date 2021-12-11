@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Drawing;
-
+using System.IO;
+using System.Resources;
 namespace Moonwalk_Simulator
 {
     public class GameObject
@@ -231,9 +234,11 @@ namespace Moonwalk_Simulator
     }
     public class Hat : CollidingObject
     {
+        public bool Left = true;
+        public bool Fly;
         public void Move()
         {
-            if (HorizontalCollide(0,0,false))
+            if (HorizontalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.X *= -1;
             }
@@ -241,7 +246,7 @@ namespace Moonwalk_Simulator
             {
                 Location.X += Speed.X;
             }
-            if (VerticalCollide(0,0,false))
+            if (VerticalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.Y *= -1;
             }

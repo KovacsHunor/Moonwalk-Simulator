@@ -10,17 +10,21 @@ namespace Moonwalk_Simulator
     public partial class Form1 : Form
     {
         static Player player = Global.player;
-        Point posConst = new Point((1920-30)/2, 2*1080/3);
+        static Hat hat = Global.hat;
+        
         GameObject fuel0 = new GameObject();
         GameObject fuel1 = new GameObject();
         public Form1()
         {
             Global.GameObjects.Add(Global.player);
+            Global.GameObjects.Add(Global.hat);
 
-           
-            
 
-            player.Sprite = Properties.Resources.player;
+            hat.Sprite = Properties.Resources.hatr;
+            hat.Location = new Point(0, 0);
+            hat.Size = new Size(28, 16);
+
+            player.Sprite = Properties.Resources.jackson;
             player.Location = new Point(0,0);
             player.Size = new Size(30,60);
             DoubleBuffered = true;
@@ -28,7 +32,7 @@ namespace Moonwalk_Simulator
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
             GenerateMap(Properties.Resources.level0);
-
+            
             fuel0.Size = new Size(202, 17);
             fuel0.Sprite = Properties.Resources.fuel0;
             Global.GameObjects.Add(fuel0);
@@ -107,8 +111,8 @@ namespace Moonwalk_Simulator
                     d++;
                 }
                 e.Graphics.DrawImage(obj.Sprite,
-                                     obj.Location.X - d + posConst.X - player.Location.X,
-                                     obj.Location.Y - d + posConst.Y - player.Location.Y,
+                                     obj.Location.X - d + Global.posConst.X - player.Location.X,
+                                     obj.Location.Y - d + Global.posConst.Y - player.Location.Y,
                                      obj.Size.Width + 2 * d, obj.Size.Height + 2 * d);
             }
         }
@@ -133,6 +137,7 @@ namespace Moonwalk_Simulator
                 }
             }
             player.Move();
+            hat.Move();
             fuel1.Size.Width = player.fuel * 2;
             if(fuel1.Size.Width < 0)
             {
@@ -148,19 +153,50 @@ namespace Moonwalk_Simulator
             fuel1.Location = player.Location;
             fuel1.Location.X += 701;
             fuel1.Location.Y -= 599;
+            if (!hat.Fly)
+            {
+                if (hat.Left)
+                {
+                    hat.Sprite = Properties.Resources.hat;
+                    hat.Location.X = player.Location.X + 1;
+                    
+                }
+                else
+                {
+                    hat.Sprite = Properties.Resources.hatr;
+                    hat.Location.X = player.Location.X + 1;
+                }
+                hat.Location.Y = player.Location.Y;
+            }
             Refresh();
         }
+        public Point hatConst = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
         public void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.XButton1)
+            if(e.Button == MouseButtons.Right)
             {
                 player.onPlatform = true;
                 player.Jumping = false;
             }
+            if (e.Button == MouseButtons.Left && !hat.Fly)
+            {
+                hat.Fly = true;
+                    if (Math.Abs(Cursor.Position.X - hatConst.X) >= Math.Abs(Cursor.Position.Y - hatConst.Y))
+                    {
+                        hat.Speed.X = Math.Sign(Cursor.Position.X - hatConst.X) * 10;
+                        hat.Speed.Y = Math.Sign(Cursor.Position.Y - hatConst.Y) * (int)(Math.Abs((float)(Cursor.Position.Y - hatConst.Y) + 0.1) / (Math.Abs((float)(Cursor.Position.X - hatConst.X) + 0.1) / 10));
+                    }
+                    else
+                    {
+                        hat.Speed.Y = Math.Sign(Cursor.Position.Y - hatConst.Y) * 10;
+                        hat.Speed.X = Math.Sign(Cursor.Position.X - hatConst.X) * (int)(Math.Abs((float)(Cursor.Position.X - hatConst.X) + 0.1) / (Math.Abs((float)(Cursor.Position.Y - hatConst.Y) + 0.1) / 10));
+                    }
+
+            }
         }
         public void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.XButton1)
+            if (e.Button == MouseButtons.Right)
             {
                 player.onPlatform = false;
                 player.countPlatform = 20;
@@ -173,10 +209,12 @@ namespace Moonwalk_Simulator
             if (e.KeyCode == Keys.A)
             {
                 player.Left = true;
+                hat.Left = true;
             }
             if (e.KeyCode == Keys.D)
             {
                 player.Right = true;
+                hat.Left = false;
             }
             if (e.KeyCode == Keys.Space && !spacedown)
             {
@@ -186,9 +224,9 @@ namespace Moonwalk_Simulator
                     spacedown = true;
                 }
             }
-            if(e.KeyCode == Keys.ShiftKey)
+            if (e.KeyCode == Keys.Q)
             {
-               // player.onPlatform = true;
+                hat.Fly = false;
             }
             if (e.KeyCode == Keys.B)
             {

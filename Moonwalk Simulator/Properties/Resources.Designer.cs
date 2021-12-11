@@ -302,6 +302,16 @@ namespace Moonwalk_Simulator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hatr {
+            get {
+                object obj = ResourceManager.GetObject("hatr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap jackson {
             get {
                 object obj = ResourceManager.GetObject("jackson", resourceCulture);
@@ -332,7 +342,7 @@ namespace Moonwalk_Simulator.Properties {
         ///                     w
         ///                                                                                                         w
         ///                                                                                                         w
-        ///                                                                         [rest of string was truncated]&quot;;.
+        ///                                                                                     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level0 {
             get {
