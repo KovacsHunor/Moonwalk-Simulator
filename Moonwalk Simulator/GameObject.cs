@@ -46,10 +46,7 @@ namespace Moonwalk_Simulator
         }
         public bool VerticalCollide(int x, int y, bool recursion)
         {
-            if (!Global.player.Jumping && this == Global.player && (Global.player.onPlatform || Global.player.countPlatform >= 0) && Global.player.fuel > 0)
-            {
-                return true;
-            }
+            
             if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices[y].Count)
             {
                 foreach (GameObject item in Global.Slices[y][x].Objects)
@@ -82,11 +79,16 @@ namespace Moonwalk_Simulator
                     }
                 }
             }
+           
             if (this is Player && !recursion &&
                 (Convert.ToInt32((Location.X + Speed.X + Math.Sign(Speed.X)) / (16 * 60)) != x ||
                  Convert.ToInt32((Location.Y + Speed.Y + Math.Sign(Speed.Y)) / (16 * 60)) != y))
             {
                 return VerticalCollide((Location.X + Speed.X) / (16 * 60), (Location.Y + Speed.Y) / (16 * 60), true);
+            }
+            if (!Global.player.Jumping && this == Global.player && ((Global.player.onPlatform || Global.player.countPlatform >= 0) && !Global.player.onGround) && Global.player.fuel > 0)
+            {
+                return true;
             }
             return false;
         }
@@ -129,7 +131,7 @@ namespace Moonwalk_Simulator
         public bool Jumping;
         public bool ShortJump;
         public int JumpLim;
-        public bool onPlatform ;
+        public bool onPlatform;
         public int countPlatform = -1;
         public int fuel;
         public bool platformJump = true;
@@ -144,11 +146,11 @@ namespace Moonwalk_Simulator
             {
                 fuel--;
             }
-            if(onGround && fuel < 100)
+            if(onGround)
             {
-                fuel += 4;
-                if(!platformJump)
+                if (fuel < 100)
                 {
+                    fuel += 4;
                     platformJump = true;
                 }
             }

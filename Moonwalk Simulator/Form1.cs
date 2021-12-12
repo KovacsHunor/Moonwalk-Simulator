@@ -11,14 +11,15 @@ namespace Moonwalk_Simulator
     {
         static Player player = Global.player;
         static Hat hat = Global.hat;
+       
         
         GameObject fuel0 = new GameObject();
         GameObject fuel1 = new GameObject();
+        GameObject platform = new GameObject();
         public Form1()
         {
             Global.GameObjects.Add(Global.player);
             Global.GameObjects.Add(Global.hat);
-
 
             hat.Sprite = Properties.Resources.hatr;
             hat.Location = new Point(0, 0);
@@ -40,6 +41,10 @@ namespace Moonwalk_Simulator
             fuel1.Size = new Size(200, 15);
             fuel1.Sprite = Properties.Resources.fuel1;
             Global.GameObjects.Add(fuel1);
+
+            platform.Sprite = Properties.Resources.empty;
+            platform.Size = new Size(34, 1);
+            Global.GameObjects.Add(platform);
         }
         
         void GenerateMap(string file)
@@ -153,6 +158,16 @@ namespace Moonwalk_Simulator
             fuel1.Location = player.Location;
             fuel1.Location.X += 701;
             fuel1.Location.Y -= 599;
+            platform.Location.X = player.Location.X - 2;
+            platform.Location.Y = player.Location.Y + 61;
+            if (!player.onGround && (player.countPlatform > 0 || player.onPlatform))
+            {
+                platform.Sprite = Properties.Resources.platform;
+            }
+            else
+            {
+                platform.Sprite = Properties.Resources.empty;
+            }
             if (!hat.Fly)
             {
                 if (hat.Left)
@@ -173,7 +188,7 @@ namespace Moonwalk_Simulator
         public Point hatConst = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
         public void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if(e.Button == MouseButtons.Right && !player.onPlatform && !player.onGround)
             {
                 player.onPlatform = true;
                 player.Jumping = false;
@@ -196,7 +211,7 @@ namespace Moonwalk_Simulator
         }
         public void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && player.onPlatform)
             {
                 player.onPlatform = false;
                 player.countPlatform = 20;
@@ -219,7 +234,7 @@ namespace Moonwalk_Simulator
             if (e.KeyCode == Keys.Space && !spacedown)
             {
                 spacepress = true;
-                if (player.onPlatform)
+                if (player.onPlatform && !player.onGround)
                 {
                     spacedown = true;
                 }
