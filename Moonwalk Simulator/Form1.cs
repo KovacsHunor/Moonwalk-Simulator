@@ -188,7 +188,7 @@ namespace Moonwalk_Simulator
         public Point hatConst = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
         public void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right && !player.onPlatform && !player.onGround)
+            if(e.Button == MouseButtons.Right && !player.onPlatform && !player.onGround && player.fuel > 0)
             {
                 player.onPlatform = true;
                 player.Jumping = false;
@@ -211,7 +211,7 @@ namespace Moonwalk_Simulator
         }
         public void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && player.onPlatform)
+            if (e.Button == MouseButtons.Right && player.onPlatform && player.fuel > 0)
             {
                 player.onPlatform = false;
                 player.countPlatform = 20;
