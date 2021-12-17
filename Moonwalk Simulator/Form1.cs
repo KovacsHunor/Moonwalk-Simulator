@@ -160,7 +160,7 @@ namespace Moonwalk_Simulator
             fuel1.Location.Y -= 599;
             platform.Location.X = player.Location.X - 2;
             platform.Location.Y = player.Location.Y + 61;
-            if (!player.onGround && (player.countPlatform > 0 || player.onPlatform))
+            if (!player.onGround && (player.countPlatform > 0 || (player.onPlatform && player.fuel > 0)))
             {
                 platform.Sprite = Properties.Resources.platform;
             }

@@ -32,3 +32,20 @@ C:\Users\Lenovoű\Downloads\Moonwalk-Simulator\Moonwalk-Simulator\Moonwalk Simul
 C:\Users\Lenovoű\Downloads\Moonwalk-Simulator\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.dll
 C:\Users\Lenovoű\Downloads\Moonwalk-Simulator\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.pdb
 C:\Users\Lenovoű\Downloads\Moonwalk-Simulator\Moonwalk-Simulator\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.genruntimeconfig.cache
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.exe
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.deps.json
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.runtimeconfig.json
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.runtimeconfig.dev.json
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.dll
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\bin\Debug\netcoreapp3.1\Moonwalk Simulator.pdb
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.AssemblyReference.cache
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk_Simulator.Form1.resources
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk_Simulator.Properties.Resources.resources
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.GenerateResource.cache
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.AssemblyInfoInputs.cache
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.AssemblyInfo.cs
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.csproj.CoreCompileInputs.cache
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.dll
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.pdb
+C:\Users\h16\Downloads\Moonwalk-Simulator-master (2)\Moonwalk-Simulator-master\Moonwalk Simulator\obj\Debug\netcoreapp3.1\Moonwalk Simulator.genruntimeconfig.cache
