@@ -139,7 +139,7 @@ namespace Moonwalk_Simulator
         public int fallCounter = 1;
         public void Move()
         {
-            if (!onPlatform && !onGround && countPlatform == -1 && Global.player.Location.Y > 400)
+            if (Global.player.Location.Y > 2000)
             {
                 fallCounter++;
             }

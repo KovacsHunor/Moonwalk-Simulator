@@ -124,7 +124,7 @@ namespace Moonwalk_Simulator
 
         private void main_Tick(object sender, EventArgs e)
         {
-            if (player.fallCounter % 100 == 0)
+            if (player.fallCounter % 50 == 0)
             {
                 player.health--;
             }
@@ -189,7 +189,10 @@ namespace Moonwalk_Simulator
             if (player.health == 0)
             {
                 player.health = 3;
-                player.Location = new Point(0,0); 
+                player.Location = new Point(0,0);
+                player.fuel = 100;
+                player.onPlatform = false;
+                
             }
             Refresh();
         }
@@ -219,10 +222,13 @@ namespace Moonwalk_Simulator
         }
         public void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && player.onPlatform && player.fuel > 0)
+            if (e.Button == MouseButtons.Right && player.onPlatform)
             {
                 player.onPlatform = false;
-                player.countPlatform = 20;
+                if (player.fuel > 0)
+                {
+                    player.countPlatform = 20;
+                }
             }
         }
         bool spacedown;
