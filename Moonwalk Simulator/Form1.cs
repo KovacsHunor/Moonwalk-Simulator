@@ -124,7 +124,10 @@ namespace Moonwalk_Simulator
 
         private void main_Tick(object sender, EventArgs e)
         {
-            
+            if (player.fallCounter % 100 == 0)
+            {
+                player.health--;
+            }
             if (spacepress && !spacedown)
             {
                 if (((player.countPlatform > 0 && player.platformJump) || player.onGround) && !player.onPlatform && player.fuel > 0)
@@ -182,6 +185,11 @@ namespace Moonwalk_Simulator
                     hat.Location.X = player.Location.X + 1;
                 }
                 hat.Location.Y = player.Location.Y;
+            }
+            if (player.health == 0)
+            {
+                player.health = 3;
+                player.Location = new Point(0,0); 
             }
             Refresh();
         }

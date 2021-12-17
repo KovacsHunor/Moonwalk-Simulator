@@ -135,8 +135,14 @@ namespace Moonwalk_Simulator
         public int countPlatform = -1;
         public int fuel;
         public bool platformJump = true;
+        public int health = 3;
+        public int fallCounter = 1;
         public void Move()
         {
+            if (!onPlatform && !onGround && countPlatform == -1 && Global.player.Location.Y > 400)
+            {
+                fallCounter++;
+            }
             if (JumpLim == 1)
             {
                 Speed.Y = -27;
