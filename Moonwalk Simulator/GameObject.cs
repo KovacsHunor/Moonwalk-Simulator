@@ -151,6 +151,10 @@ namespace Moonwalk_Simulator
             if (onPlatform)
             {
                 fuel--;
+                if(fuel == 0)
+                {
+                    Global.player.onPlatform = false;
+                }
             }
             if(onGround)
             {
@@ -159,6 +163,7 @@ namespace Moonwalk_Simulator
                     fuel += 4;
                     platformJump = true;
                 }
+
             }
             if(countPlatform > 0)
             {
