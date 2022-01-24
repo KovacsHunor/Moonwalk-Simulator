@@ -31,7 +31,8 @@ namespace Moonwalk_Simulator
         {
             this.components = new System.ComponentModel.Container();
             this.main = new System.Windows.Forms.Timer(this.components);
-            this.moowalk = new System.Windows.Forms.Timer(this.components);
+            this.moonwalk = new System.Windows.Forms.Timer(this.components);
+            this.refresh = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // main
@@ -40,11 +41,17 @@ namespace Moonwalk_Simulator
             this.main.Interval = 10;
             this.main.Tick += new System.EventHandler(this.main_Tick);
             // 
-            // moowalk
+            // moonwalk
             // 
-            this.moowalk.Enabled = true;
-            this.moowalk.Interval = 50;
-            this.moowalk.Tick += new System.EventHandler(this.moowalk_Tick);
+            this.moonwalk.Enabled = true;
+            this.moonwalk.Interval = 50;
+            this.moonwalk.Tick += new System.EventHandler(this.moowalk_Tick);
+            // 
+            // refresh
+            // 
+            this.refresh.Enabled = true;
+            this.refresh.Interval = 5;
+            this.refresh.Tick += new System.EventHandler(this.refresh_Tick);
             // 
             // Form1
             // 
@@ -55,9 +62,8 @@ namespace Moonwalk_Simulator
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             this.ResumeLayout(false);
 
         }
@@ -65,7 +71,8 @@ namespace Moonwalk_Simulator
         #endregion
 
         private System.Windows.Forms.Timer main;
-        private System.Windows.Forms.Timer moowalk;
+        private System.Windows.Forms.Timer moonwalk;
+        private System.Windows.Forms.Timer refresh;
     }
 }
 

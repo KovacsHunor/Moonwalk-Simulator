@@ -32,8 +32,10 @@ namespace Moonwalk_Simulator
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             InitializeComponent();
+            //Menu();
             GenerateMap(Properties.Resources.level0);
-            
+            hat.Const = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
+            hat.Pos = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
             fuel0.Size = new Size(202, 17);
             fuel0.Sprite = Properties.Resources.fuel0;
             Global.GameObjects.Add(fuel0);
@@ -45,14 +47,27 @@ namespace Moonwalk_Simulator
             platform.Sprite = Properties.Resources.empty;
             platform.Size = new Size(34, 1);
             Global.GameObjects.Add(platform);
+
+            start.Sprite = Properties.Resources.button;
+            start.Size = new Size(60, 60);
         }
-        
+        bool menu = false;
+        void Menu()
+        {
+            menu = true;
+            main.Enabled = false;
+            moonwalk.Enabled = false;
+            Global.MenuObjects.Add(start);
+          //  Global.MenuObjects.Add(exit);
+           // Global.MenuObjects.Add(options);
+        }
         void GenerateMap(string file)
         {
             string[] lines = file.Split('\n');
             int y = 0;
             foreach (string line in lines )
-            { 
+            {
+                int z = 0;
                 int x = 0;
                 while (x < line.Length)
                 {
@@ -62,7 +77,7 @@ namespace Moonwalk_Simulator
                     }
                     for (int j = 0; j < Global.Slices.Count; j++)
                     {
-                        while (Global.Slices[j].Count < x/16 + 1)
+                        while (Global.Slices[j].Count < x-z/16 + 1)
                         {
                             Global.Slices[j].Add(new Slice());
                         }
@@ -76,57 +91,127 @@ namespace Moonwalk_Simulator
                     else if (line[x] == 'b')
                     {
                         Button g = new Button();
-                        g.Sprite = Image.FromFile(@"sprites\button.png");
+                        g.Sprite = Properties.Resources.button;
                         GenerateObject(g, x, y);
                     }
                     else if (line[x] == 'd')
                     {
                         Door g = new Door();
-                        g.Sprite = Image.FromFile(@"sprites\door.png");
+                        Global.Doors.Add(g);
+                        g.Sprite = Properties.Resources.door;
                         GenerateObject(g, x, y);
                     }
                     else if (line[x] == 'x')
                     {
                         Damage g = new Damage();
-                        g.Sprite = Image.FromFile(@"sprites\damage.png");
+                        g.Sprite = Properties.Resources.danger;
                         GenerateObject(g, x, y);
+
+                    }
+                    else if (line[x] == 's')
+                    {
+                        Spawn g = new Spawn();
+                        g.Sprite = Properties.Resources.spawn;
+                        GenerateObject(g, x, y);
+
                     }
                     x++;
                 }
                 y++;
             }
         }
-        void GenerateObject(GameObject g, int x, int y)
+        void GenerateObject(Wall g, int x, int y)
         {
             g.Location = new Point(x * 60, y * 60);
             g.Size = new Size(60, 60);
             Global.GameObjects.Add(g);
-            Global.Slices[y / 16][x / 16].Objects.Add(g);
+            if (g is Door)
+            {
+
+            }
+            else
+            {
+                Global.Slices[y / 16][x / 16].Objects.Add(g);
+            }
+            g.SlicePosy = y / 16;
+            g.SlicePosx = x / 16;
         }
-
-
+        bool ClickObject (GameObject a)
+        {
+            if (Form1.MousePosition.X > a.Location.X && Form1.MousePosition.X < a.Location.X + a.Size.Width && Form1.MousePosition.Y > a.Location.Y && Form1.MousePosition.Y < a.Location.Y + a.Size.Height)
+            {
+                return true;
+            }
+            return false;
+        }
+        GameObject start = new GameObject();
+        
+      //  GameObject exit = new GameObject();
+      //GameObject options = new GameObject();
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.ScaleTransform(Screen.PrimaryScreen.Bounds.Width / 1920f, Screen.PrimaryScreen.Bounds.Height / 1080f);
-            foreach (GameObject obj in Global.GameObjects)
+            if (menu)
             {
-                int d = 0;
-                if (obj is Wall)
+                foreach (GameObject obj in Global.MenuObjects)
                 {
-                    d++;
+                    e.Graphics.DrawImage(obj.Sprite, obj.Location);
                 }
-                e.Graphics.DrawImage(obj.Sprite,
-                                     obj.Location.X - d + Global.posConst.X - player.Location.X,
-                                     obj.Location.Y - d + Global.posConst.Y - player.Location.Y,
-                                     obj.Size.Width + 2 * d, obj.Size.Height + 2 * d);
             }
+            else
+            {
+                foreach (GameObject obj in Global.GameObjects)
+                {
+                    int d = 0;
+                    if (obj is Wall || obj is Damage)
+                    {
+                        d++;
+                    }
+                    e.Graphics.DrawImage(obj.Sprite,
+                                         obj.Location.X - d + Global.posConst.X - player.Location.X,
+                                         obj.Location.Y - d + Global.posConst.Y - player.Location.Y,
+                                         obj.Size.Width + 2 * d, obj.Size.Height + 2 * d);
+                }
+            }
+           
         }
 
         private void main_Tick(object sender, EventArgs e)
         {
+
+            player.Move();
+            hat.Move();
+            hat.Speed.X = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.X);
+            hat.Speed.Y = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.Y);
+
+            hat.Aim.X -= hat.Speed.X;
+            hat.Aim.Y -= hat.Speed.Y;
+            if (hat.Fly && (Math.Abs(hat.Aim.X) < 10 || Math.Abs(hat.Aim.Y) < 10))
+            {
+                hat.Aim.X += hat.Speed.X;
+                hat.Aim.Y += hat.Speed.Y;
+            }
             if (player.fallCounter % 50 == 0)
             {
                 player.health--;
+                
+            }
+            if (player.Place is Damage)
+            {
+                if (player.damageCount == 0)
+                {
+                    player.health--;
+                    player.damageCount = 50;
+                }
+                else
+                {
+                    player.damageCount--;
+                }
+            }
+            else if(player.Place is Spawn)
+            {
+                player.spawn.X = player.Place.Location.X;
+                player.spawn.Y = player.Place.Location.Y - 200;
             }
             if (spacepress && !spacedown)
             {
@@ -144,8 +229,6 @@ namespace Moonwalk_Simulator
                     }
                 }
             }
-            player.Move();
-            hat.Move();
             fuel1.Size.Width = player.fuel * 2;
             if(fuel1.Size.Width < 0)
             {
@@ -189,35 +272,43 @@ namespace Moonwalk_Simulator
             if (player.health == 0)
             {
                 player.health = 3;
-                player.Location = new Point(0,0);
+                player.Location = player.spawn;
                 player.fuel = 100;
                 player.onPlatform = false;
-                
+                player.onGround = false;
             }
-            Refresh();
         }
         public Point hatConst = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
+        void Resume()
+        {
+            menu = false;
+            moonwalk.Enabled = true;
+            main.Enabled = true;
+            Global.MenuObjects.Remove(start);
+        }
         public void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right && !player.onPlatform && !player.onGround && player.fuel > 0)
+
+            if (e.Button == MouseButtons.Right && !player.onPlatform && !player.onGround && player.fuel > 0)
             {
                 player.onPlatform = true;
                 player.Jumping = false;
             }
-            if (e.Button == MouseButtons.Left && !hat.Fly)
+            if (e.Button == MouseButtons.Left)
             {
-                hat.Fly = true;
-                    if (Math.Abs(Cursor.Position.X - hatConst.X) >= Math.Abs(Cursor.Position.Y - hatConst.Y))
-                    {
-                        hat.Speed.X = Math.Sign(Cursor.Position.X - hatConst.X) * 10;
-                        hat.Speed.Y = Math.Sign(Cursor.Position.Y - hatConst.Y) * (int)(Math.Abs((float)(Cursor.Position.Y - hatConst.Y) + 0.1) / (Math.Abs((float)(Cursor.Position.X - hatConst.X) + 0.1) / 10));
-                    }
-                    else
-                    {
-                        hat.Speed.Y = Math.Sign(Cursor.Position.Y - hatConst.Y) * 10;
-                        hat.Speed.X = Math.Sign(Cursor.Position.X - hatConst.X) * (int)(Math.Abs((float)(Cursor.Position.X - hatConst.X) + 0.1) / (Math.Abs((float)(Cursor.Position.Y - hatConst.Y) + 0.1) / 10));
-                    }
+                if (menu && ClickObject(start))
+                {
+                    Resume();
+                }
+                else if (!hat.Fly && !menu)
+                {
+                    hat.Fly = true;
+                    hat.Aim.X = (Cursor.Position.X - hat.Const.X);
+                    hat.Aim.Y = (Cursor.Position.Y - hat.Const.Y);
+                 //  hat.Speed.X = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.X);
+                   //hat.Speed.Y = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.Y);
 
+                }
             }
         }
         public void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -256,6 +347,18 @@ namespace Moonwalk_Simulator
             if (e.KeyCode == Keys.Q)
             {
                 hat.Fly = false;
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                
+                if (menu)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Menu();
+                }
             }
             if (e.KeyCode == Keys.B)
             {
@@ -315,6 +418,11 @@ namespace Moonwalk_Simulator
                 }
                 spin = !spin;
             }
+        }
+
+        private void refresh_Tick(object sender, EventArgs e)
+        {
+            Refresh();
         }
     }
 }

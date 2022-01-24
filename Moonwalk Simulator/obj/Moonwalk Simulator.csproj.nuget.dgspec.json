@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovoű\\source\\repos\\true Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj": {}
+    "D:\\Moonwalk-Simulator-master\\Moonwalk-Simulator-master\\Moonwalk Simulator\\Moonwalk Simulator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovoű\\source\\repos\\true Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj": {
+    "D:\\Moonwalk-Simulator-master\\Moonwalk-Simulator-master\\Moonwalk Simulator\\Moonwalk Simulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovoű\\source\\repos\\true Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
+        "projectUniqueName": "D:\\Moonwalk-Simulator-master\\Moonwalk-Simulator-master\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
         "projectName": "Moonwalk Simulator",
-        "projectPath": "C:\\Users\\Lenovoű\\source\\repos\\true Moonwalk-Simulator\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
+        "projectPath": "D:\\Moonwalk-Simulator-master\\Moonwalk-Simulator-master\\Moonwalk Simulator\\Moonwalk Simulator.csproj",
         "packagesPath": "C:\\Users\\Lenovoű\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovoű\\source\\repos\\true Moonwalk-Simulator\\Moonwalk Simulator\\obj\\",
+        "outputPath": "D:\\Moonwalk-Simulator-master\\Moonwalk-Simulator-master\\Moonwalk Simulator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lenovoű\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Windows;
 using System.IO;
 using System.Resources;
 namespace Moonwalk_Simulator
@@ -15,6 +16,7 @@ namespace Moonwalk_Simulator
     public class CollidingObject : GameObject
     {
         public Point Speed = new Point();
+        
         public bool HorizontalCollide(int x, int y, bool recursion)
         {
             if (x >= 0 && y >= 0 && y < Global.Slices.Count && x < Global.Slices[y].Count)
@@ -57,6 +59,7 @@ namespace Moonwalk_Simulator
                         {
                             if (this == Global.player)
                             {
+                                Global.player.Place = item;
                                 Global.player.onGround = true;
                                 Global.player.Jumping = false;
                             }
@@ -137,6 +140,9 @@ namespace Moonwalk_Simulator
         public bool platformJump = true;
         public int health = 3;
         public int fallCounter = 1;
+        public GameObject Place;
+        public int damageCount = 0;
+        public Point spawn = new Point(0,0);
         public void Move()
         {
             if (Global.player.Location.Y > 2000)
@@ -249,11 +255,18 @@ namespace Moonwalk_Simulator
     {
         public bool Left = true;
         public bool Fly;
+
+        public Point Const;
+        public Point Pos;
+        public Point Aim;
         public void Move()
         {
             if (HorizontalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.X *= -1;
+                Aim.X *= -1;
+                Location.X += Speed.X;
+
             }
             else
             {
@@ -262,6 +275,8 @@ namespace Moonwalk_Simulator
             if (VerticalCollide(Location.X / (16 * 60), Location.Y / (16 * 60), false))
             {
                 Speed.Y *= -1;
+                Aim.Y *= -1;
+                Location.Y += Speed.Y;
             }
             else
             {
@@ -271,17 +286,21 @@ namespace Moonwalk_Simulator
     }
     public class Wall : GameObject
     {
-
+        public int SlicePosy;
+        public int SlicePosx;
     }
-    public class Button : GameObject
+    public class Button : Wall
+    {
+    }
+    public class Door : Wall
+    {
+        
+    }
+    public class Damage : Wall
     {
 
     }
-    public class Door : GameObject
-    {
-
-    }
-    public class Damage : GameObject
+    public class Spawn : Wall
     {
 
     }

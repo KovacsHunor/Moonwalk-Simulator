@@ -261,11 +261,32 @@ namespace Moonwalk_Simulator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to hsdasdasdasdasdashhhhhhhhhhhhasdasdasdasddasddadshhhhhhhhhhhhhhhhhhhhasdsdsssshhhhhhhhhhhhhhhhhhhhhhssasssdsasdsasddassss.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string a {
+        internal static System.Drawing.Bitmap button {
             get {
-                return ResourceManager.GetString("a", resourceCulture);
+                object obj = ResourceManager.GetObject("button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap danger {
+            get {
+                object obj = ResourceManager.GetObject("danger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap door {
+            get {
+                object obj = ResourceManager.GetObject("door", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -343,16 +364,16 @@ namespace Moonwalk_Simulator.Properties {
         ///   Looks up a localized string similar to 
         ///
         ///
-        ///wwwwwwwwwwwwww                                     wwwwwwwwwwwwwwww
+        ///swwwwwwwwwwww                                     wwwwwwwwwwwwwwww
         ///
         ///
-        ///                                     wwwwwww                                  wwwwwwwwwwww
+        ///                                     wwwwwww                                  wwwwwbwwwwbwww
         ///
         ///                     wwww
         ///                     w
-        ///                                                                                                         w
-        ///                                                                                                         w
-        ///                                                                                     [rest of string was truncated]&quot;;.
+        ///                                                                                           d              w
+        ///                                                                                           d              w
+        ///                                                                                  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level0 {
             get {
@@ -387,6 +408,25 @@ namespace Moonwalk_Simulator.Properties {
             get {
                 object obj = ResourceManager.GetObject("slice", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spawn {
+            get {
+                object obj = ResourceManager.GetObject("spawn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dhsdasdasdasdasdashhhhhhhhhhhhasdasdasdasddasddadshhhhhhhhhhhhhhhhhhhhasdsdsssshhhhhhhhhhhhhhhhhhhhhhssasssdsasdsasddassss.
+        /// </summary>
+        internal static string t {
+            get {
+                return ResourceManager.GetString("t", resourceCulture);
             }
         }
         
