@@ -12,17 +12,20 @@ namespace Moonwalk_Simulator
         static Player player = Global.player;
         static Hat hat = Global.hat;
        
-        
+       
         GameObject fuel0 = new GameObject();
         GameObject fuel1 = new GameObject();
         GameObject platform = new GameObject();
+
         public Form1()
         {
             Global.GameObjects.Add(Global.player);
             Global.GameObjects.Add(Global.hat);
-
             hat.Sprite = Properties.Resources.hatr;
             hat.Location = new Point(0, 0);
+            hat.trueLocation.X = 0;
+            hat.trueLocation.Y = 0;
+
             hat.Size = new Size(28, 16);
 
             player.Sprite = Properties.Resources.jackson;
@@ -50,16 +53,27 @@ namespace Moonwalk_Simulator
 
             start.Sprite = Properties.Resources.button;
             start.Size = new Size(60, 60);
+            start.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - start.Size.Width / 2, 440);
+            options.Sprite = Properties.Resources.button;
+            options.Size = new Size(60, 60);
+            options.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - start.Size.Width / 2, 520);
+            
+            exit.Sprite = Properties.Resources.danger;
+            exit.Size = new Size(60, 60);
+            exit.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - exit.Size.Width / 2, 600);
+           
         }
         bool menu = false;
+        bool B_options;
         void Menu()
         {
             menu = true;
             main.Enabled = false;
             moonwalk.Enabled = false;
             Global.MenuObjects.Add(start);
-          //  Global.MenuObjects.Add(exit);
-           // Global.MenuObjects.Add(options);
+            Global.MenuObjects.Add(exit);
+            Global.MenuObjects.Add(options);
+
         }
         void GenerateMap(string file)
         {
@@ -138,24 +152,33 @@ namespace Moonwalk_Simulator
         }
         bool ClickObject (GameObject a)
         {
-            if (Form1.MousePosition.X > a.Location.X && Form1.MousePosition.X < a.Location.X + a.Size.Width && Form1.MousePosition.Y > a.Location.Y && Form1.MousePosition.Y < a.Location.Y + a.Size.Height)
+            if (MousePosition.X > a.Location.X && MousePosition.X < a.Location.X + a.Size.Width && MousePosition.Y > a.Location.Y && MousePosition.Y < a.Location.Y + a.Size.Height)
             {
                 return true;
             }
             return false;
         }
         GameObject start = new GameObject();
-        
-      //  GameObject exit = new GameObject();
-      //GameObject options = new GameObject();
+        GameObject exit = new GameObject();
+        GameObject options = new GameObject();
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.ScaleTransform(Screen.PrimaryScreen.Bounds.Width / 1920f, Screen.PrimaryScreen.Bounds.Height / 1080f);
             if (menu)
             {
-                foreach (GameObject obj in Global.MenuObjects)
+                if (B_options)
                 {
-                    e.Graphics.DrawImage(obj.Sprite, obj.Location);
+                    foreach (GameObject obj in Global.OptionsObjects)
+                    {
+                        e.Graphics.DrawImage(obj.Sprite, obj.Location);
+                    }
+                }
+                else
+                {
+                    foreach (GameObject obj in Global.MenuObjects)
+                    {
+                        e.Graphics.DrawImage(obj.Sprite, obj.Location);
+                    }
                 }
             }
             else
@@ -181,37 +204,34 @@ namespace Moonwalk_Simulator
 
             player.Move();
             hat.Move();
-            hat.Speed.X = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.X);
-            hat.Speed.Y = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.Y);
-
-            hat.Aim.X -= hat.Speed.X;
-            hat.Aim.Y -= hat.Speed.Y;
-            if (hat.Fly && (Math.Abs(hat.Aim.X) < 10 || Math.Abs(hat.Aim.Y) < 10))
-            {
-                hat.Aim.X += hat.Speed.X;
-                hat.Aim.Y += hat.Speed.Y;
-            }
+            
             if (player.fallCounter % 50 == 0)
             {
                 player.health--;
                 
+            }
+            if (player.damageCount > 0)
+            {
+                player.damageCount--;
             }
             if (player.Place is Damage)
             {
                 if (player.damageCount == 0)
                 {
                     player.health--;
-                    player.damageCount = 50;
-                }
-                else
-                {
-                    player.damageCount--;
+                    player.damageCount = 100;
                 }
             }
             else if(player.Place is Spawn)
             {
-                player.spawn.X = player.Place.Location.X;
-                player.spawn.Y = player.Place.Location.Y - 200;
+                Spawn s = (Spawn)player.Place;
+                if (!s.Used) 
+                {
+                    player.spawn.X = player.Place.Location.X;
+                    player.spawn.Y = player.Place.Location.Y - 200;
+                    s.Used = true;
+                }
+                
             }
             if (spacepress && !spacedown)
             {
@@ -256,26 +276,27 @@ namespace Moonwalk_Simulator
             }
             if (!hat.Fly)
             {
+                hat.Sprite = Properties.Resources.hatr;
                 if (hat.Left)
                 {
                     hat.Sprite = Properties.Resources.hat;
-                    hat.Location.X = player.Location.X + 1;
-                    
                 }
-                else
-                {
-                    hat.Sprite = Properties.Resources.hatr;
-                    hat.Location.X = player.Location.X + 1;
-                }
+                hat.trueLocation.X = player.Location.X + 1;
+                hat.trueLocation.Y = player.Location.Y;
+                hat.Location.X = player.Location.X + 1;
                 hat.Location.Y = player.Location.Y;
             }
             if (player.health == 0)
             {
+                player.Speed.X = 0;
+                player.Speed.Y = 0;
                 player.health = 3;
                 player.Location = player.spawn;
                 player.fuel = 100;
                 player.onPlatform = false;
                 player.onGround = false;
+                player.damageCount = 50;
+                player.fallCounter = 1;
             }
         }
         public Point hatConst = new Point(Global.posConst.X + 14, Global.posConst.Y + 8);
@@ -296,17 +317,26 @@ namespace Moonwalk_Simulator
             }
             if (e.Button == MouseButtons.Left)
             {
-                if (menu && ClickObject(start))
+                if (menu)
                 {
-                    Resume();
+                    if (ClickObject(start))
+                    {
+                        Resume();
+                    }
+                    if (ClickObject(options))
+                    {
+                        B_options = true;
+                    }
+                    if (ClickObject(exit))
+                    {
+                        Application.Exit();
+                    }
                 }
                 else if (!hat.Fly && !menu)
                 {
                     hat.Fly = true;
-                    hat.Aim.X = (Cursor.Position.X - hat.Const.X);
-                    hat.Aim.Y = (Cursor.Position.Y - hat.Const.Y);
-                 //  hat.Speed.X = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.X);
-                   //hat.Speed.Y = (int)(Math.Sqrt(100 / (float)(Math.Pow(hat.Aim.X, 2) + Math.Pow(hat.Aim.Y, 2))) * hat.Aim.Y);
+                    hat.Speed.X = Math.Sqrt(100 / (float)(Math.Pow(Cursor.Position.X - hat.Const.X, 2) + Math.Pow(Cursor.Position.Y - hat.Const.Y, 2))) * (Cursor.Position.X - hat.Const.X);
+                    hat.Speed.Y = Math.Sqrt(100 / (float)(Math.Pow(Cursor.Position.X - hat.Const.X, 2) + Math.Pow(Cursor.Position.Y - hat.Const.Y, 2))) * (Cursor.Position.Y - hat.Const.Y);
 
                 }
             }
@@ -326,6 +356,7 @@ namespace Moonwalk_Simulator
         bool spacepress;
         public void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            Keys a = e.KeyCode;
             if (e.KeyCode == Keys.A)
             {
                 player.Left = true;
@@ -353,7 +384,14 @@ namespace Moonwalk_Simulator
                 
                 if (menu)
                 {
-                    Resume();
+                    if (B_options)
+                    {
+                        B_options = false;
+                    }
+                    else
+                    {
+                        Resume();
+                    }
                 }
                 else
                 {

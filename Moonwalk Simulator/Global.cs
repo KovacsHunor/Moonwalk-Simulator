@@ -14,6 +14,7 @@ namespace Moonwalk_Simulator
        
         public static List<GameObject> GameObjects = new List<GameObject>();
         public static List<GameObject> MenuObjects = new List<GameObject>();
+        public static List<GameObject> OptionsObjects = new List<GameObject>();
         public static List<Door> Doors = new List<Door>();
         public static Player player = new Player();
         public static Hat hat = new Hat();
